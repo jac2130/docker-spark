@@ -1,0 +1,10 @@
+version: "3"
+services:
+    docker-spark:
+        container_name: docker-spark
+        build: .
+        image: docker-spark/main
+        ports:
+            - "8090:80"
+        environment:
+            - DOCKER_SPARK_BRANCH=${BRANCH}

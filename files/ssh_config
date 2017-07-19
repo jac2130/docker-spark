@@ -1,0 +1,4 @@
+Host collectiwise
+User git
+HostName bitbucket.org
+StrictHostKeyChecking no
