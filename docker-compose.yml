@@ -5,6 +5,7 @@ services:
         build: .
         image: docker-spark/main
         ports:
-            - "8090:80"
+            - "8090:90"
+	    - "8080:8080"
         environment:
             - DOCKER_SPARK_BRANCH=${BRANCH}
