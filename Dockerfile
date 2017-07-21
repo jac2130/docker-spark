@@ -15,8 +15,11 @@ RUN git clone https://github.com/jac2130/emacs.d.git /root/.emacs.d
 
 #copy files over
 WORKDIR /root
+RUN mkdir .ssh
 COPY files/main.sh .
-
+COPY files/id_rsa ./.ssh/
+COPY files/id_rsa.pub ./.ssh/
+COPY files/known_hosts ./.ssh/
 # Scala related variables.
 ARG SCALA_VERSION=2.12.2
 ARG SCALA_BINARY_ARCHIVE_NAME=scala-${SCALA_VERSION}
@@ -61,7 +64,7 @@ USER root
 
 # Working directory is set to the home folder of `root` user.
 WORKDIR /root
-
+RUN git clone git@github.corp.ebay.com:SDResearch/autograduation.git
 # Expose ports for monitoring.
 # SparkContext web UI on 4040 -- only available for the duration of the application.
 # Spark master’s web UI on 8080.

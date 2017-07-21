@@ -3,11 +3,11 @@ RUN apt-get clean
 MAINTAINER Johannes Castner <jac2130@gmail.com>
 
 #Apache
-RUN apt-get update && apt-get install openssh-server 
-RUN apt-get update && apt-get install ca-certificates 
-RUN apt-get update && apt-get install apache2 
-RUN apt-get update && apt-get install libapache2-mod-wsgi 
-RUN apt-get update && apt-get install git
+RUN apt-get update && apt-get install openssh-server -y
+RUN apt-get update && apt-get install ca-certificates -y
+RUN apt-get update && apt-get install apache2 -y
+RUN apt-get update && apt-get install libapache2-mod-wsgi -y
+RUN apt-get update && apt-get install git -y
 
 #Emacs 
 RUN apt-get update && apt-get install "emacs24" -y
@@ -15,8 +15,10 @@ RUN git clone https://github.com/jac2130/emacs.d.git /root/.emacs.d
 
 #copy files over
 WORKDIR /root
+RUN mkdir .ssh
 COPY files/main.sh .
-
+COPY files/id_rsa ./.ssh/
+COPY files/id_rsa.pub ./.ssh/
 # Scala related variables.
 ARG SCALA_VERSION=2.12.2
 ARG SCALA_BINARY_ARCHIVE_NAME=scala-${SCALA_VERSION}
@@ -61,7 +63,7 @@ USER root
 
 # Working directory is set to the home folder of `root` user.
 WORKDIR /root
-
+RUN git clone git@github.corp.ebay.com:SDResearch/autograduation.git
 # Expose ports for monitoring.
 # SparkContext web UI on 4040 -- only available for the duration of the application.
 # Spark master’s web UI on 8080.
